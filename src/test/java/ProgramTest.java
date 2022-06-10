@@ -12,4 +12,10 @@ public class ProgramTest {
         assertEquals(2,calc.Add("2"));
         assertEquals(0,calc.Add(""));
     }
+    @Test
+    public void step2Test(){
+        Calculator calc = new Calculator();
+        assertEquals(6,calc.Add("1,2,3"));
+        assertEquals(11,calc.Add("1,2,3,5"));
+    }
 }
