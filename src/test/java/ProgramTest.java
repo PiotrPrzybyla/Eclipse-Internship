@@ -2,7 +2,6 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 public class ProgramTest {
 
@@ -51,14 +50,22 @@ public class ProgramTest {
     }
     @Test()
     public void step5Test(){
-        Assert.assertThrows(NegativeNumberException.class, ()->{
-            Calculator.Add("1,-2,3");
-        });
+        Assert.assertThrows(NegativeNumberException.class, ()-> Calculator.Add("1,-2,3"));
         try {
             Calculator.Add("1,-2,3,-4");
         } catch (NegativeNumberException e) {
-            assertTrue(e.getMessage().equals("negatives not allowed. Negatives: -2 -4 "));
+            assertEquals("negatives not allowed. Negatives: -2 -4 ", e.getMessage());
         }
 
+    }
+    @Test
+    public void step6Test(){
+        try {
+            assertEquals(2, Calculator.Add("2,1023"));
+            assertEquals(1005, Calculator.Add("5,1000"));
+            assertEquals(40, Calculator.Add("2,15,23,2052,3045"));
+        } catch (NegativeNumberException e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -33,7 +33,10 @@ public class Calculator {
             }
             for (int number: intNumbers) {
                 if(number <0 ) negativeNumbers.append(number).append(" ");
-                result+=number;
+                if(number<=1000){
+                    result+=number;
+                }
+
             }
             if(!negativeNumbers.toString().equals("")){
                 throw new NegativeNumberException("negatives not allowed. Negatives: " + negativeNumbers);
