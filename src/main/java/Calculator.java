@@ -1,16 +1,31 @@
 import java.util.ArrayList;
 
 public class Calculator {
-    public int Add(String numbers) {
-        String[] commaNumbers = (numbers.split(","));
+    public static int Add(String numbers) {
+        String[] newLineNumbers = (numbers.split("\n"));
         ArrayList<Integer> intNumbers = new ArrayList<>();
         ArrayList<String> strNumbers = new ArrayList<>();
-        for (String commaNumber: commaNumbers) {
-            String[] strNumber = commaNumber.split("\n");
-            for (int i = 0; i < strNumber.length; i++) {
-                strNumbers.add(strNumber[i]);
-            }
+        String delimiter = ",";
+        boolean isComma = true;
+        if(newLineNumbers[0].contains("//")){
+            delimiter = newLineNumbers[0].split("//")[1];
+            isComma = false;
         }
+        if (isComma){
+            for (int i =0; i<newLineNumbers.length;i++) {
+            String[] strNumber = newLineNumbers[i].split(delimiter);
+            for (int j = 0; j < strNumber.length; j++) {
+                strNumbers.add(strNumber[j]);
+            }
+        }}else {
+            for (int i =1; i<newLineNumbers.length;i++) {
+                String[] strNumber = newLineNumbers[i].split(delimiter);
+                for (int j = 0; j < strNumber.length; j++) {
+                    strNumbers.add(strNumber[j]);
+                }
+        }}
+
+
         int result = 0;
         if(numbers != ""){
             for (String strNumber: strNumbers) {
