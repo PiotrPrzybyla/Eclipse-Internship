@@ -1,7 +1,9 @@
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 
 public class Calculator {
-    public static int Add(String numbers) {
+    public static int Add(String numbers) throws NegativeNumberException {
         String[] newLineNumbers = (numbers.split("\n"));
         ArrayList<Integer> intNumbers = new ArrayList<>();
         ArrayList<String> strNumbers = new ArrayList<>();
@@ -12,27 +14,29 @@ public class Calculator {
             isComma = false;
         }
         if (isComma){
-            for (int i =0; i<newLineNumbers.length;i++) {
-            String[] strNumber = newLineNumbers[i].split(delimiter);
-            for (int j = 0; j < strNumber.length; j++) {
-                strNumbers.add(strNumber[j]);
+            for (String newLineNumber : newLineNumbers) {
+                String[] strNumber = newLineNumber.split(delimiter);
+                strNumbers.addAll(Arrays.asList(strNumber));
             }
-        }}else {
+        }else {
             for (int i =1; i<newLineNumbers.length;i++) {
                 String[] strNumber = newLineNumbers[i].split(delimiter);
-                for (int j = 0; j < strNumber.length; j++) {
-                    strNumbers.add(strNumber[j]);
-                }
+                Collections.addAll(strNumbers, strNumber);
         }}
 
 
         int result = 0;
-        if(numbers != ""){
+        StringBuilder negativeNumbers = new StringBuilder();
+        if(!numbers.equals("")){
             for (String strNumber: strNumbers) {
                 intNumbers.add(Integer.parseInt(strNumber));
             }
             for (int number: intNumbers) {
+                if(number <0 ) negativeNumbers.append(number).append(" ");
                 result+=number;
+            }
+            if(!negativeNumbers.toString().equals("")){
+                throw new NegativeNumberException("negatives not allowed. Negatives: " + negativeNumbers);
             }
         }
 
